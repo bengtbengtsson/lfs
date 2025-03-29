@@ -13,7 +13,7 @@ fi
 
 cd $LFS/sources
 
-tar -xvf make-4.4.1.tar.xz 
+tar -xvf make-4.4.1.tar.gz 
 cd make-4.4.1
 
 ./configure --prefix=/usr   \

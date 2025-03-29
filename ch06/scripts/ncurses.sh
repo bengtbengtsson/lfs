@@ -13,7 +13,7 @@ fi
 
 cd $LFS/sources
 
-tar -xvf ncurses-6.5.tar.xz 
+tar -xvf ncurses-6.5.tar.gz 
 cd ncurses-6.5 
 
 mkdir build

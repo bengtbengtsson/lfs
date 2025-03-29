@@ -13,7 +13,7 @@ fi
 
 cd $LFS/sources
 
-tar -xvf bash-5.2.37.tar.xz 
+tar -xvf bash-5.2.37.tar.gz 
 cd bash-5.2.37
 
 ./configure --prefix=/usr                      \

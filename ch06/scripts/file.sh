@@ -13,7 +13,7 @@ fi
 
 cd $LFS/sources
 
-tar -xvf file-5.46.tar.xz 
+tar -xvf file-5.46.tar.gz 
 cd file-5.46
 
 mkdir build
