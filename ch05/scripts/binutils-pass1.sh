@@ -4,6 +4,13 @@
 
 set -e
 
+# Check that LFS and LFS_TGT are set
+if [ -z "$LFS" ] || [ -z "$LFS_TGT" ]; then
+  echo "Error: One or both required environment variables are not set."
+  echo "Make sure both \$LFS and \$LFS_TGT are defined."
+  exit 1
+fi
+
 cd $LFS/sources
 
 tar -xvf binutils-2.44.tar.xz
