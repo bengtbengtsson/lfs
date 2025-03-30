@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+if [ "$USER" != "lfs" ]; then
+  echo "This script must be run as the 'lfs' user. Aborting."
+  exit 1
+fi
+
 # Define your build list
 packages=(
   "m4"
