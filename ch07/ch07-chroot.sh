@@ -4,50 +4,6 @@
 
 set -e
 
-# Check that LFS and LFS_TGT are set
-if [ -z "$LFS" ] || [ -z "$LFS_TGT" ]; then
-  echo "Error: One or both required environment variables are not set."
-  echo "Make sure both \$LFS and \$LFS_TGT are defined."
-  exit 1
-fi
-
-if [ "$USER" != "root" ]; then
-  echo "This script must be run as the 'root' user. Aborting."
-  exit 1
-fi
-
-# 7.2 changing ownership
-chown --from lfs -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
-case $(uname -m) in
-  x86_64) chown --from lfs -R root:root $LFS/lib64 ;;
-esac
-
-# 7.3 preparing virtual kernel file systems
-mkdir -pv $LFS/{dev,proc,sys,run}
-
-mount -v --bind /dev $LFS/dev
-
-mount -vt devpts devpts -o gid=5,mode=0620 $LFS/dev/pts
-mount -vt proc proc $LFS/proc
-mount -vt sysfs sysfs $LFS/sys
-mount -vt tmpfs tmpfs $LFS/run
-
-if [ -h $LFS/dev/shm ]; then
-  install -v -d -m 1777 $LFS$(realpath /dev/shm)
-else
-  mount -vt tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
-fi
-
-# 7.4 entering the chroot environment
-chroot "$LFS" /usr/bin/env -i   \
-    HOME=/root                  \
-    TERM="$TERM"                \
-    PS1='(lfs chroot) \u:\w\$ ' \
-    PATH=/usr/bin:/usr/sbin     \
-    MAKEFLAGS="-j$(nproc)"      \
-    TESTSUITEFLAGS="-j$(nproc)" \
-    /bin/bash --login
-
 # 7.5 creating directories
 mkdir -pv /{boot,home,mnt,opt,srv}
 
@@ -117,7 +73,7 @@ echo "tester:x:101:101::/home/tester:/bin/bash" >> /etc/passwd
 echo "tester:x:101:" >> /etc/group
 install -o tester -d /home/tester
 
-exec /usr/bin/bash --login
+# exec /usr/bin/bash --login
 
 touch /var/log/{btmp,lastlog,faillog,wtmp}
 chgrp -v utmp /var/log/lastlog

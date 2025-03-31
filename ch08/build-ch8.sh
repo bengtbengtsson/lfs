@@ -1,0 +1,94 @@
+#!/bin/bash
+set -e
+
+# Chapter 8 package installation script
+
+packages=(
+  man-pages
+  iana-etc
+  glibc
+  zlib
+  bzip2
+  xz
+  lz4
+  zstd
+  file
+  readline
+  m4
+  bc
+  flex
+  tcl
+  expect
+  dejagnu
+  pkgconf
+  binutils
+  gmp
+  mpfr
+  mpc
+  attr
+  acl
+  libcap
+  libxcrypt
+  shadow
+  gcc
+  ncurses
+  sed
+  psmisc
+  gettext
+  bison
+  grep
+  bash
+  libtool
+  gdbm
+  gperf
+  expat
+  inetutils
+  less
+  perl
+  xml-parser
+  intltool
+  autoconf
+  automake
+  openssl
+  libelf
+  libffi
+  python
+  flit-core
+  wheel
+  setuptools
+  ninja
+  meson
+  kmod
+  coreutils
+  check
+  diffutils
+  gawk
+  findutils
+  groff
+  grub
+  gzip
+  iproute2
+  kbd
+  libpipeline
+  make
+  patch
+  tar
+  texinfo
+  vim
+  markupsafe
+  jinja2
+  udev
+  man-db
+  procps-ng
+  util-linux
+  e2fsprogs
+  sysklogd
+  sysvinit
+  cleanup
+)
+
+for pkg in "${packages[@]}"; do
+  echo "### Building $pkg..."
+  ./scripts/$pkg.sh
+  echo "### Finished $pkg"
+done
