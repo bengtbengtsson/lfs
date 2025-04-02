@@ -1,16 +1,46 @@
 #!/bin/bash
 
+set -euo pipefail
+
 export LFS=/mnt/lfs
+SOURCES="$LFS/sources"
 
-set -e
+echo "### Ensuring sources directory exists and is writable"
+mkdir -pv "$SOURCES"
+chmod -v a+wt "$SOURCES"
 
-chmod -v a+wt $LFS/sources
+echo "### Downloading source files"
+wget --input-file=wget-list-sysv \
+     --continue \
+     --directory-prefix="$SOURCES" \
+     --no-verbose \
+     --show-progress
 
-wget --input-file=wget-list-sysv --continue --directory-prefix=$LFS/sources
-cp -v md5sums $LFS/sources
+echo "### Verifying all expected files are present"
 
-pushd $LFS/sources
-  md5sum -c md5sums
-popd
+missing_files=()
 
-chown root:root $LFS/sources/*
+while read -r hash filename; do
+    if [[ ! -f "$SOURCES/$filename" ]]; then
+        missing_files+=("$filename")
+    fi
+done < md5sums
+
+if (( ${#missing_files[@]} > 0 )); then
+    echo "❌ Missing file(s) after wget:"
+    printf '  - %s\n' "${missing_files[@]}"
+    echo "Aborting."
+    exit 1
+fi
+
+echo "### Copying md5sums to sources"
+cp -v md5sums "$SOURCES"
+
+echo "### Verifying checksums"
+pushd "$SOURCES" > /dev/null
+md5sum -c md5sums
+popd > /dev/null
+
+echo "### Fixing file ownership"
+chown root:root "$SOURCES"/*
+
