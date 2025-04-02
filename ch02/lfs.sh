@@ -23,7 +23,7 @@ umask 022
 
 # --- Partition setup ---
 if ! mountpoint -q "$LFS"; then
-    "setupdisk_${PARTITION_SCHEME}.sh" "$LFS_DISK"
+    "./setupdisk_${PARTITION_SCHEME}.sh" "$LFS_DISK"
     mkdir -pv "$LFS"
 
     # Adjust partition suffix (e.g., /dev/sda3 or /dev/nvme0n1p3)
@@ -38,16 +38,22 @@ if ! mountpoint -q "$LFS"; then
     fi
 
     mount "$ROOT" "$LFS"
-    mount -v -t ext4 "$BOOT" "$LFS/boot"
-    swapon -v "$SWAP"
+
+    mkdir -pv "$LFS/boot"
+
+    if [ "$PARTITION_SCHEME" = "mbr" ]; then
+        mount -v -t ext4 "$BOOT" "$LFS/boot"
+    else
+        mount -v -t vfat "$BOOT" "$LFS/boot"
+    fi
 fi
 
 # --- Directory layout ---
 mkdir -pv $LFS/tools 
 mkdir -pv $LFS/sources
-
 mkdir -pv $LFS/{etc,var} $LFS/usr/{bin,lib,sbin}
 mkdir -pv $LFS/lib64
+
 for i in bin lib sbin; do
     ln -sv usr/$i $LFS/$i
 done
