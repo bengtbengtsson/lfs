@@ -24,7 +24,7 @@ echo "### Building Man-DB"
 make
 
 echo "### Running Man-DB test suite"
-make check || true
+make check
 
 echo "### Installing Man-DB"
 make install

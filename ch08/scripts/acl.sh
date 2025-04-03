@@ -17,7 +17,7 @@ echo "### Building acl"
 make
 
 echo "### Running acl test suite (ignore known cp.test failure)"
-make check || true
+make check
 
 echo "### Installing acl"
 make install

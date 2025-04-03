@@ -36,7 +36,7 @@ make
 #chown -R tester .
 
 #echo "### Running Util-linux test suite"
-#su tester -c "make -k check" || true
+#su tester -c "make -k check"
 
 echo "### Installing Util-linux"
 make install

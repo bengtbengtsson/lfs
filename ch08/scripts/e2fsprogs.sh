@@ -25,7 +25,7 @@ echo "### Building E2fsprogs"
 make
 
 echo "### Running E2fsprogs test suite"
-make check || true
+make check
 
 echo "### Installing E2fsprogs"
 make install

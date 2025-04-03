@@ -30,7 +30,7 @@ echo "### Compiling Glibc"
 make -j$(nproc)
 
 echo "### Running Glibc test suite (can be slow)"
-make check || true
+make check
 
 echo "### Prevent warning about missing /etc/ld.so.conf"
 touch /etc/ld.so.conf

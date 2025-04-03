@@ -22,7 +22,7 @@ echo "### Preparing for tests"
 chown -R tester .
 
 echo "### Running Procps-ng test suite"
-su tester -c "PATH=$PATH make check" || true
+su tester -c "PATH=$PATH make check"
 
 echo "### Installing Procps-ng"
 make install

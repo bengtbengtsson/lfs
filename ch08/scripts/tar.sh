@@ -15,7 +15,7 @@ echo "### Building Tar"
 make
 
 echo "### Running tests for Tar"
-make check || true
+make check
 
 echo "### Installing Tar"
 make install

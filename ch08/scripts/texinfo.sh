@@ -15,13 +15,13 @@ echo "### Building Texinfo"
 make
 
 echo "### Running tests for Texinfo"
-make check || true
+make check
 
 echo "### Installing Texinfo"
 make install
 
 echo "### Optionally installing TeX components"
-make TEXMF=/usr/share/texmf install-tex || true
+make TEXMF=/usr/share/texmf install-tex
 
 cd ..
 rm -rf texinfo-7.2
