@@ -1,12 +1,10 @@
 #!/bin/bash
 
 cat > ~/.bash_profile << "EOF"
-echo "Setting up bash profile"
 exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
 EOF
 
 cat > ~/.bashrc << "EOF"
-echo "Setting up bashrc"
 set +h
 umask 022
 export LFS=/mnt/lfs
