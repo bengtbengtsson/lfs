@@ -25,7 +25,7 @@ set timeout -1
 spawn make tests
 expect eof
 lassign [wait] _ _ _ value
-exit \$value
+exit $value
 EOF
 
 echo "### Installing bash"
