@@ -4,7 +4,7 @@
 
 set -e
 
-if [ "$USER" != "root" ]; then
+if [ "$(whoami)" != "root" ]; then
   echo "This script must be run as the 'root' user. Aborting."
   exit 1
 fi
