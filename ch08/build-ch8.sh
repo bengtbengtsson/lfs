@@ -84,6 +84,9 @@ packages=(
   e2fsprogs
   sysklogd
   sysvinit
+  efivar
+  popt
+  efibootmgr
   cleanup
 )
 

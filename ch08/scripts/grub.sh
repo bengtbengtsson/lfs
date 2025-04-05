@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+. /sources/.lfsenv || {
+  echo "❌ Could not load LFS environment."
+  exit 1
+}
+
 echo "### Entering /sources"
 pushd /sources
 
@@ -14,11 +19,20 @@ unset {C,CPP,CXX,LD}FLAGS
 echo "### Creating missing extra_deps.lst"
 echo depends bli part_gpt > grub-core/extra_deps.lst
 
-echo "### Configuring GRUB"
-./configure --prefix=/usr          \
-            --sysconfdir=/etc      \
-            --disable-efiemu       \
-            --disable-werror
+if [ "$LFS_PART_SCHEME" = "gpt" ]; then
+  ./configure --prefix=/usr \
+              --sysconfdir=/etc \
+              --disable-efiemu \
+              --with-platform=efi \
+              --target=x86_64 \
+              --disable-werror
+else
+  ./configure --prefix=/usr \
+              --sysconfdir=/etc \
+              --disable-efiemu \
+              --target=i386-pc \
+              --disable-werror
+fi
 
 echo "### Building GRUB"
 make

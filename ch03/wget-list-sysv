@@ -91,3 +91,6 @@ https://www.linuxfromscratch.org/patches/lfs/12.3/expect-5.45.4-gcc14-1.patch
 https://www.linuxfromscratch.org/patches/lfs/12.3/glibc-2.41-fhs-1.patch
 https://www.linuxfromscratch.org/patches/lfs/12.3/kbd-2.7.1-backspace-1.patch
 https://www.linuxfromscratch.org/patches/lfs/12.3/sysvinit-3.14-consolidated-1.patch
+https://github.com/rhboot/efibootmgr/archive/18/efibootmgr-18.tar.gz
+https://github.com/rhboot/efivar/archive/39/efivar-39.tar.gz
+https://ftp.osuosl.org/pub/rpm/popt/releases/popt-1.x/popt-1.19.tar.gz
