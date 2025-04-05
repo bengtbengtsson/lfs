@@ -2,7 +2,7 @@
 set -e
 
 # create custom udev rules
-/usr/lib/udev/init-net-rules.sh
+bash /usr/lib/udev/init-net-rules.sh
 
 # inspect the rules
 echo "Here are the rules generated in /etc/udev/rules.d/70-persistent-net.rules file"
