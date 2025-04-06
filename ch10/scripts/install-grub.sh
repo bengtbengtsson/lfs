@@ -6,7 +6,7 @@ set -e
   exit 1
 }
 
-if [ "$LFS_PART_SCHEME" = "gpt" ]; then
+if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   echo "👉 Installing GRUB for UEFI..."
   
   mkdir -pv /boot/efi
@@ -28,13 +28,13 @@ cat > /boot/grub/grub.cfg << EOF
 set default=0
 set timeout=5
 
-insmod part_${LFS_PART_SCHEME}
+insmod part_${LFS_PARTITION_SCHEME}
 insmod ext2
 set root=(hd0,1)
 
 EOF
 
-if [ "$LFS_PART_SCHEME" = "gpt" ]; then
+if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   cat >> /boot/grub/grub.cfg << "EOF"
 insmod efi_gop
 insmod efi_uga

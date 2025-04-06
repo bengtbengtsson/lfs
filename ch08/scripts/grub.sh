@@ -19,7 +19,7 @@ unset {C,CPP,CXX,LD}FLAGS
 echo "### Creating missing extra_deps.lst"
 echo depends bli part_gpt > grub-core/extra_deps.lst
 
-if [ "$LFS_PART_SCHEME" = "gpt" ]; then
+if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   ./configure --prefix=/usr \
               --sysconfdir=/etc \
               --disable-efiemu \

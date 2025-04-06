@@ -6,7 +6,7 @@ set -e
   exit 1
 }
 
-if [ "$LFS_PART_SCHEME" = "gpt" ]; then
+if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   echo "### Entering /sources"
   pushd /sources
 
