@@ -23,10 +23,15 @@ umask 022
 echo "Activating the enviroment variables"
 echo "You might confirm this by running 'env'"
 
-. /sources/.lfsenv || {
+. /mnt/lfs/sources/.lfsenv || {
   echo "❌ Could not load LFS environment."
   exit 1
 }
+
+echo
+echo "Here are the LFS_ variables"
+echo
+env | grep LFS_ | sort
 
 echo "Mounting the virtual file system"
 mount -v --bind /dev $LFS/dev
