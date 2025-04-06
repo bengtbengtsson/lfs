@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 if [ "$(whoami)" != "lfs" ]; then
   echo "This script must be run as the 'lfs' user. Aborting."

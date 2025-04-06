@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 # Chapter 10 package installation script
 

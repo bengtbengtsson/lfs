@@ -2,7 +2,7 @@
 # This script is used to build m4
 # This script should be run as lfs user
 
-set -e
+set -eu
 
 # Check that LFS and LFS_TGT are set
 if [ -z "$LFS" ] || [ -z "$LFS_TGT" ]; then

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eu
 
 pushd /sources
 cd linux-6.13.4

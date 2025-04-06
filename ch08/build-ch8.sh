@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 # Chapter 8 package installation script
 

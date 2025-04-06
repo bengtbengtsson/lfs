@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 . /sources/.lfsenv || {
   echo "❌ Could not load LFS environment."

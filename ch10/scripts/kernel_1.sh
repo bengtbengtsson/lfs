@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eu
 
 cd /sources
 tar -xvf linux-6.13.4.tar.xz

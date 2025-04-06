@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 echo "### Entering /sources"
 pushd /sources

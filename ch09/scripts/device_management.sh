@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 # create custom udev rules
 bash /usr/lib/udev/init-net-rules.sh

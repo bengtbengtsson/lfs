@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 cat > /etc/inittab << "EOF"
 # Begin /etc/inittab

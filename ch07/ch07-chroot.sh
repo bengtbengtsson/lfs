@@ -2,7 +2,7 @@
 # This script is used to control tha various scripts in ch07
 # This script should be run as the root user
 
-set -e
+set -eu
 
 # 7.5 creating directories
 mkdir -pv /{boot,home,mnt,opt,srv}

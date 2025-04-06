@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 export LFS=/mnt/lfs
 LFS_DISK="$1"

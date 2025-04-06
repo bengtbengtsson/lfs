@@ -2,7 +2,7 @@
 # This script is used to control tha various scripts in ch07
 # This script should be run as the root user
 
-set -e
+set -eu
 
 if [ "$(whoami)" != "root" ]; then
   echo "This script must be run as the 'root' user. Aborting."
