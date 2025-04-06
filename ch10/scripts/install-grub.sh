@@ -16,7 +16,8 @@ if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
                --bootloader-id=LFS \
                --efi-directory=/boot/efi \
                --boot-directory=/boot \
-               --recheck
+               --recheck \
+               --no-nvram
 
 else
   echo "👉 Installing GRUB for BIOS/MBR..."
