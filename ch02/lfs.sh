@@ -67,7 +67,7 @@ cat > "$LFS/sources/.lfsenv" << EOF
 export LFS=/mnt/lfs
 export LFS_DISK=$LFS_DISK
 export LFS_TGT=$LFS_TGT
-export PARTITION_SCHEME=$PARTITION_SCHEME
+export LFS_PARTITION_SCHEME=$PARTITION_SCHEME
 export LFS_GRUB_ID=LFS
 
 if [[ "\$LFS_DISK" =~ nvme ]]; then

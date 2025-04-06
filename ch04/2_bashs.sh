@@ -22,4 +22,3 @@ EOF
 
 echo "Now type 'source ~/.bash_profile' to apply the changes"
 
-
