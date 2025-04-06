@@ -1,6 +1,16 @@
 #!/bin/bash
-
 set -eu
+
+# Optionally load environment with LFS_PARTITION_SCHEME
+. /sources/.lfsenv
+
+if [[ "${LFS_PARTITION_SCHEME}" == "gpt" ]]; then
+  if ! mount | grep -q 'on /boot type vfat'; then
+    echo "❌ GPT/UEFI mode detected, but /boot is not mounted as vfat"
+    echo "   Please ensure /boot is mounted to your EFI system partition"
+    exit 1
+  fi
+fi
 
 pushd /sources
 cd linux-6.13.4
@@ -17,6 +27,6 @@ cd ..
 rm -rf linux-6.13.4
 popd
 
+echo "✅ Linux kernel has been built and installed."
+echo "👉 Now run ./install-grub.sh"
 
-echo "Linux kernel has been built and installed."
-echo "Now run ./install-grub.sh"
