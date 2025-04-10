@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Once the /mnt/lfs is created, cd into directory and"
+echo "git clone https://github.com/bengtbengtsson/lfs.git scripts"
+
 set -eu
 
 # --- Argument validation ---

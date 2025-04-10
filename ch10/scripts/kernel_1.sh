@@ -7,7 +7,7 @@ tar -xvf linux-6.13.4.tar.xz
 cd linux-6.13.4
 
 make mrproper
-cp -iv ../../xtra/config-lfs-12.3 .config
+cp -iv /scripts/xtra/config-lfs-12.3 .config
 
 echo "A '.config' file taylored for LFS 12.3 has been copied to the linux directory."
 echo "If needed, continue with manual config"
