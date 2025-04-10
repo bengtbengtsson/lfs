@@ -6,14 +6,32 @@
 
 ## Instructions
 
-- the scripts are tested on a x86_64 computer
 - [Gentoo LiveGUI USB image](https://www.gentoo.org/downloads/) has been used as build host
 - clone [this](https://github.com/bengtbengtsson/lfs.git) repo into user gentoo home directory
 
 ```bash
+cd /home/gentoo
 git clone https://github.com/bengtbengtsson/lfs.git scripts
 ```
 
-- start in ch02, read up (it is all not clear!)
+- start in chapter 2, read the script file (it is all not clear!)
+
+- the scripts are tested on a x86_64 computer
 
 ## Tests
+Some of the tests run in chapter 8 will fail (this is unfortunate but expected)
+
+### Known fails:
+
+- glibc --> io/tst-faccessat-setui and io/tst-lchmod
+- acl --> test/cp.test
+- tar --> capabilities binary store/store
+- e2fsprogs --> m_assure_storage_prezeroed
+
+It is recommended to run all tests and when hitting test failure in one of the above scripts:
+
+- comment out the make check | make test in the script file
+- remove or comment out all scripts already built (in file build.ch08.sh)
+- now you will have the failed script as the first script in the 'packages' list
+- rm -rf /sources/< directory of failed test >
+- restart the 'build-ch08.sh' script
