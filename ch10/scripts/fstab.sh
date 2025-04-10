@@ -13,8 +13,9 @@ cat > /etc/fstab <<EOF
 # file system  mount-point    type     options             dump  fsck
 #                                                                order
 
-${LFS_ROOT}  /              ext4     defaults            1     1
-${LFS_SWAP}  swap           swap     pri=1               0     0
+UUID=${BOOT_UUID}    /boot/efi      vfat     defaults            0     1
+UUID=${ROOT_UUID}    /              ext4     defaults            1     1
+UUID=${SWAP_UUID}    swap           swap     pri=1               0     0
 proc           /proc          proc     nosuid,noexec,nodev 0     0
 sysfs          /sys           sysfs    nosuid,noexec,nodev 0     0
 devpts         /dev/pts       devpts   gid=5,mode=620      0     0

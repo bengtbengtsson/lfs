@@ -13,11 +13,11 @@ if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   mount -v -t vfat "$LFS_BOOT" /boot/efi
 
   grub-install --target=x86_64-efi \
-               --bootloader-id=LFS \
                --efi-directory=/boot/efi \
+               --bootloader-id=LFS \
                --boot-directory=/boot \
+               --removable \
                --recheck \
-               --no-nvram
 
 else
   echo "👉 Installing GRUB for BIOS/MBR..."
@@ -31,7 +31,9 @@ set timeout=5
 
 insmod part_${LFS_PARTITION_SCHEME}
 insmod ext2
-set root=(hd0,1)
+insmod fat
+
+set root=(hd0,gpt3)
 
 EOF
 
@@ -48,7 +50,7 @@ fi
 cat >> /boot/grub/grub.cfg << "EOF"
 
 menuentry "GNU/Linux, Linux 6.13.4-lfs-12.3" {
-  linux /boot/vmlinuz-6.13.4-lfs-12.3 root=${LFS_ROOT} ro
+  linux /vmlinuz-6.13.4-lfs-12.3 root=${LFS_ROOT} ro
 }
 
 menuentry "Firmware Setup" {
