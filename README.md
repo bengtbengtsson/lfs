@@ -10,7 +10,8 @@
 - clone [this](https://github.com/bengtbengtsson/lfs.git) repo into user gentoo home directory
 
 ```bash
-cd /home/gentoo
+sudo -i
+cd /root
 git clone https://github.com/bengtbengtsson/lfs.git scripts
 ```
 
