@@ -6,7 +6,6 @@ set -eu
   exit 1
 }
 
-if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   echo "### Entering /sources"
   pushd /sources
 
@@ -21,6 +20,4 @@ if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   cd ..
   rm -rf efivar-39
   popd
-
-fi
 

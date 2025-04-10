@@ -6,7 +6,6 @@ set -eu
   exit 1
 }
 
-if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   echo "### Entering /sources"
   pushd /sources
 
@@ -19,6 +18,4 @@ if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   cd ..
   rm -rf efibootmgr-18
   popd
-
-fi
 

@@ -7,40 +7,66 @@ if [ "$(whoami)" != "root" ]; then
   exit 1
 fi
 
-echo "These are notes, and steps, on how to bring up the LFS system in development mode"
-echo "Be careful not to brake things!"
-echo "As of now we expect the /dev/sdb being used, with gpt partition scheme"
+echo "📌 Bringing up the LFS system in development mode"
 
-echo "Mount the drives"
-mkdir -pv /mnt/lfs
-mount -t ext4 /dev/sdb3 /mnt/lfs
-mkdir -pv /mnt/lfs/boot
-mount -t vfat /dev/sdb1 /mnt/lfs/boot 
-
-echo "Setting umask to 22"
-umask 022
-
-echo "Activating the enviroment variables"
-echo "You might confirm this by running 'env'"
-
+# Load environment
+echo "🔧 Loading LFS environment..."
 . /mnt/lfs/sources/.lfsenv || {
-  echo "❌ Could not load LFS environment."
+  echo "❌ Could not load LFS environment from .lfsenv"
   exit 1
 }
 
 echo
-echo "Here are the LFS_ variables"
-echo
+echo "🔍 Active LFS environment variables:"
 env | grep LFS_ | sort
 
-echo "Mounting the virtual file system"
-mount -v --bind /dev $LFS/dev
-mount -vt devpts devpts -o gid=5,mode=0620 $LFS/dev/pts
-mount -vt proc proc $LFS/proc
-mount -vt sysfs sysfs $LFS/sys
-mount -vt tmpfs tmpfs $LFS/run
+# Mount root
+echo "🔧 Mounting root partition: $LFS_ROOT → $LFS"
+mkdir -pv "$LFS"
+if ! mountpoint -q "$LFS"; then
+  mount -t ext4 "$LFS_ROOT" "$LFS"
+else
+  echo "✅ $LFS already mounted"
+fi
+
+# Mount boot
+echo "🔧 Mounting boot partition: $LFS_BOOT → $LFS/boot"
+mkdir -pv "$LFS/boot"
+if ! mountpoint -q "$LFS/boot"; then
+  mount -t vfat "$LFS_BOOT" "$LFS/boot"
+else
+  echo "✅ $LFS/boot already mounted"
+fi
+
+# Set umask
+echo "🔧 Setting umask to 022"
+umask 022
+
+# Mount virtual filesystems
+echo "🔧 Mounting virtual filesystems..."
+
+if ! mountpoint -q "$LFS/dev"; then
+  mount -v --bind /dev "$LFS/dev"
+fi
+
+if ! mountpoint -q "$LFS/dev/pts"; then
+  mount -vt devpts devpts -o gid=5,mode=0620 "$LFS/dev/pts"
+fi
+
+if ! mountpoint -q "$LFS/proc"; then
+  mount -vt proc proc "$LFS/proc"
+fi
+
+if ! mountpoint -q "$LFS/sys"; then
+  mount -vt sysfs sysfs "$LFS/sys"
+fi
+
+if ! mountpoint -q "$LFS/run"; then
+  mount -vt tmpfs tmpfs "$LFS/run"
+fi
 
 echo
-echo "✅ All mounts complete. You're now ready to run ./rechroot.sh"
-echo "Use 'mount | grep /mnt/lfs' to verify all mount points"
+echo "✅ All mounts complete."
+echo "🔁 You are now ready to run: ./rechroot.sh"
+echo "📎 Tip: Run 'mount | grep $LFS' to verify mount points"
 
