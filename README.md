@@ -7,7 +7,9 @@
 ## Instructions
 
 - [Gentoo LiveGUI USB image](https://www.gentoo.org/downloads/) has been used as build host
-- clone [this](https://github.com/bengtbengtsson/lfs.git) repo into user gentoo home directory
+- Set the correct keyboard layout on gentoo and thereafter open Konsole
+- connect to internet
+- clone [this](https://github.com/bengtbengtsson/lfs.git) repo into root's user gentoo home directory
 
 ```bash
 sudo -i
