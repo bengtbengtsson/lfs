@@ -55,7 +55,7 @@ EOF
 
 # ch 9.7
 cat > /etc/profile << "EOF"
-export LANG=en_US.UTF-8"
+export LANG=en_US.UTF-8
 
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc

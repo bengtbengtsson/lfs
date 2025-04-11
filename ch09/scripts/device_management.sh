@@ -4,14 +4,6 @@ set -eu
 # create custom udev rules
 bash /usr/lib/udev/init-net-rules.sh
 
-# inspect the rules
-echo "Here are the rules generated in /etc/udev/rules.d/70-persistent-net.rules file"
-cat /etc/udev/rules.d/70-persistent-net.rules
-# pause
-echo "You might wanna take a note of the interface name,"
-echo "and later update /etc/sysconfig/ifconfig.xxx"
-read -rp "Press any key to continue... " answer
-
 cd /etc/sysconfig/
 cat > ifconfig.eth0 << "EOF"
 ONBOOT=yes

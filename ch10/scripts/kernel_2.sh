@@ -28,5 +28,5 @@ rm -rf linux-6.13.4
 popd
 
 echo "✅ Linux kernel has been built and installed."
-echo "👉 Now run ./install-grub.sh"
+echo "👉 Now run ./scripts/install-grub.sh"
 

@@ -6,6 +6,12 @@ set -eu
   exit 1
 }
 
+if [[ "$LFS_PARTITION_SCHEME" != "gpt" && "$LFS_PARTITION_SCHEME" != "mbr" ]]; then
+  echo "❌ Invalid partition scheme: $LFS_PARTITION_SCHEME"
+  echo "   Expected 'gpt' or 'mbr'. Aborting."
+  exit 1
+fi
+
 if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
   echo "👉 Installing GRUB for UEFI..."
   
@@ -17,8 +23,7 @@ if [ "$LFS_PARTITION_SCHEME" = "gpt" ]; then
                --bootloader-id=LFS \
                --boot-directory=/boot \
                --removable \
-               --recheck \
-
+               --recheck
 else
   echo "👉 Installing GRUB for BIOS/MBR..."
   grub-install "$LFS_BOOT" --target=i386-pc
@@ -47,10 +52,10 @@ fi
 EOF
 fi
 
-cat >> /boot/grub/grub.cfg << "EOF"
+cat >> /boot/grub/grub.cfg << EOF
 
 menuentry "GNU/Linux, Linux 6.13.4-lfs-12.3" {
-  linux /vmlinuz-6.13.4-lfs-12.3 root=${LFS_ROOT} ro
+  linux /boot/vmlinuz-6.13.4-lfs-12.3 root=${LFS_ROOT} ro rootwait
 }
 
 menuentry "Firmware Setup" {

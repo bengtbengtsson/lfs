@@ -44,13 +44,13 @@ else
     echo "ℹ️ $LFS is already mounted."
 fi
 
-mkdir -pv "$LFS/boot"
+mkdir -pv "$LFS/boot/efi"
 
 if ! mountpoint -q "$LFS/boot"; then
     if [ "$PARTITION_SCHEME" = "mbr" ]; then
         mount -v -t ext4 "$BOOT" "$LFS/boot"
     elif [ "$PARTITION_SCHEME" = "gpt" ]; then
-        mount -v -t vfat "$BOOT" "$LFS/boot"
+        mount -v -t vfat "$BOOT" "$LFS/boot/efi"
     else
         echo "❌ Unknown partition scheme."
         exit 1

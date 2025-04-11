@@ -30,13 +30,13 @@ else
 fi
 
 # Mount boot
-echo "🔧 Mounting boot partition: $LFS_BOOT → $LFS/boot"
-mkdir -pv "$LFS/boot"
-if ! mountpoint -q "$LFS/boot"; then
-  mount -t vfat "$LFS_BOOT" "$LFS/boot"
-else
-  echo "✅ $LFS/boot already mounted"
-fi
+#echo "🔧 Mounting boot partition: $LFS_BOOT → $LFS/boot"
+#mkdir -pv "$LFS/boot"
+#if ! mountpoint -q "$LFS/boot"; then
+#  mount -t vfat "$LFS_BOOT" "$LFS/boot"
+#else
+#  echo "✅ $LFS/boot already mounted"
+#fi
 
 # Set umask
 echo "🔧 Setting umask to 022"
