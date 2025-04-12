@@ -9,7 +9,7 @@ echo "Installing libnl"
 #wget https://github.com/thom311/libnl/releases/download/libnl3_11_0/libnl-3.11.0.tar.gz
 #md5sum -c "0a5eb82b494c411931a47638cb0dba51" libnl-3.11.0.tar.gz
 pushd ${SOURCES}
-tar -zxv libnl-3.11.0.tar.gz
+tar -xvf libnl-3.11.0.tar.gz
 cd libnl-3.11.0
   ./configure --prefix=/usr     \
               --sysconfdir=/etc \
