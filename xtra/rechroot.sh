@@ -7,6 +7,13 @@ if [ "$(whoami)" != "root" ]; then
   exit 1
 fi
 
+# Load environment
+echo "🔧 Loading LFS environment..."
+. /mnt/lfs/sources/.lfsenv || {
+  echo "❌ Could not load LFS environment from .lfsenv"
+  exit 1
+}
+
 echo "Entering chroot environment"
 chroot "$LFS" /usr/bin/env -i   \
     HOME=/root                  \
