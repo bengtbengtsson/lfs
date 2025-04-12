@@ -15,6 +15,7 @@ pushd libnl-3.11.0
   make install
 popd
 rm -rf libnl-3.11.0
+mv libnl-3.11.0.tar.gz /scripts/blfs/sources/ 
 echo "Done installing libnl"
 
 echo "Installing iw"
@@ -27,8 +28,38 @@ pushd iw-6.9
   make install
 popd
 rm -rf iw-6.9
+mv iw-6.9.tar.xz /scripts/blfs/sources/
 echo "Done Installing iw"
-# wpa-supplicant
-#
-#
-# dhcpcd
+
+echo "Installing wpa_supplicant"
+wget https://w1.fi/releases/wpa_supplicant-2.11.tar.gz
+md5sum -c "72a4a00eddb7a499a58113c3361ab094" wpa_supplicant-2.11.tar.gz
+tar -xvf wpa_supplicant-2.11.tar.gz
+pushd wpa_supplicant-2.11
+  cd wpa_supplicant && make BINDIR=/usr/sbin LIBDIR=/usr/lib
+  install -v -m755 wpa_{cli,passphrase,supplicant} /usr/sbin/ &&
+  install -v -m644 doc/docbook/wpa_supplicant.conf.5 /usr/share/man/man5/ &&
+  install -v -m644 doc/docbook/wpa_{cli,passphrase,supplicant}.8 /usr/share/man/man8/
+popd
+rm -rf wpa_supplicant-2.11
+mv wpa_supplicant-2.11.tar.gz /scripts/blfs/sources/
+echo "Done installing wpa_supplicant"
+
+echo "Installing dhcpd"
+wget https://github.com/NetworkConfiguration/dhcpcd/releases/download/v10.2.2/dhcpcd-10.2.2.tar.xz
+md5sum -c "417ccbdef28a633e212b4fb59ba06fbf" dhcpcd-10.2.2.tar.xz
+tar -xvf dhcpcd-10.2.2.tar.xz
+pushd dhcpd-10.2.2
+./configure --prefix=/usr                \
+            --sysconfdir=/etc            \
+            --libexecdir=/usr/lib/dhcpcd \
+            --dbdir=/var/lib/dhcpcd      \
+            --runstatedir=/run           \
+            --disable-privsep         &&
+make
+make install
+popd
+rm -rf dhcpd-10.2.2
+mv dhcpcd-10.2.2.tar.xz /scripts/blfs/sources/
+echo "Done installing dhcpd"
+

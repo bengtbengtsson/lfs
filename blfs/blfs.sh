@@ -3,6 +3,7 @@ set -eu
 
 # Chapter blfs package installation script
 mkdir -pv /scripts/blfs/scripts
+mkdir -pv /scripts/blfs/sources
 
 packages=(
   fonts
