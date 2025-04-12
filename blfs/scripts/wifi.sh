@@ -85,7 +85,7 @@ echo "Installing dhcpd"
 #md5sum -c "417ccbdef28a633e212b4fb59ba06fbf" dhcpcd-10.2.2.tar.xz
 pushd ${SOURCES}
 tar -xvf dhcpcd-10.2.2.tar.xz
-cd dhcpd-10.2.2
+cd dhcpcd-10.2.2
 
 
 ./configure --prefix=/usr                \
