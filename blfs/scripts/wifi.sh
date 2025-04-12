@@ -68,7 +68,7 @@ pushd ${SOURCES}
   CONFIG_SMARTCARD=y
   CONFIG_WPS=y
   CFLAGS += -I/usr/include/libnl3
-  EOF
+EOF
 
   cd wpa_supplicant
   make -j1 BINDIR=/usr/sbin LIBDIR=/usr/lib
