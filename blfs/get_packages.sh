@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-SOURCES=/scripts/blfs/sources"
+SOURCES="/scripts/blfs/sources"
 
 echo "### Downloading packages (skipping already downloaded files)..."
 if ! wget --input-file=wget-list-blfs \
