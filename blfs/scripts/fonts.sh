@@ -17,10 +17,10 @@ setfont ter-132n.psf || {
   echo "⚠️ setfont failed, try another like ter-u32n.psf"
 }
 
-echo "👉 Making font persistent across boots"
-cat > /etc/vconsole.conf <<EOF
+cat >> /etc/sysconfig/console <<EOF
 FONT=ter-132n.psf
 EOF
+
 
 echo "✅ Terminus font installed and configured."
 
