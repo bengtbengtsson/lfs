@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+echo "The wgets does not work"
+echo "I have copied and installed the ter-* files manually"
+echo "We are using ter-132-n as default consolefont"
+
+if false; then
 echo "👉 Downloading Terminus PSF fonts"
 mkdir -p /usr/share/consolefonts
 cd /usr/share/consolefonts
@@ -23,4 +28,4 @@ EOF
 
 
 echo "✅ Terminus font installed and configured."
-
+fi
