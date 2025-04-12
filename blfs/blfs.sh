@@ -7,6 +7,9 @@ mkdir -pv /scripts/blfs/sources
 
 packages=(
   fonts
+  wifi
+  openssh
+  wget
 )
 
 for pkg in "${packages[@]}"; do
