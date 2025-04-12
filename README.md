@@ -34,7 +34,7 @@ Some of the tests run in chapter 8 will fail (this is unfortunate but expected)
 It is recommended to run all tests and when hitting test failure in one of the above scripts:
 
 - comment out the make check | make test in the script file
-- remove or comment out all scripts already built (in file build.ch08.sh)
+- remove or comment out all scripts already built (in file build-ch08.sh)
 - now you will have the failed script as the first script in the 'packages' list
 - rm -rf /sources/< directory of failed test >
 - restart the 'build-ch08.sh' script
