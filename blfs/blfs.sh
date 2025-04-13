@@ -12,6 +12,7 @@ packages=(
   wget
   curl
   git
+  lynx
 )
 
 for pkg in "${packages[@]}"; do
