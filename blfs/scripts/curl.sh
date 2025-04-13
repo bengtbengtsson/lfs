@@ -80,5 +80,12 @@ pushd ${SOURCES}
   cd ..
   rm -rf curl-8.12.1
 popd
+
+# Certs install as per wget script
+echo "Installing certs"
+grep -qxF 'cacert = "/etc/ssl/certs/ca-certificates.crt"' /etc/curlrc || \
+echo 'cacert = "/etc/ssl/certs/ca-certificates.crt"' >> /etc/curlrc
+echo "Done installing certs"
+
 echo "Done installing curl"
 
