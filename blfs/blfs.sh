@@ -10,6 +10,8 @@ packages=(
   wifi
   openssh
   wget
+  curl
+  git
 )
 
 for pkg in "${packages[@]}"; do
