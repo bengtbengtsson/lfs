@@ -5,3 +5,4 @@ https://github.com/NetworkConfiguration/dhcpcd/releases/download/v10.2.2/dhcpcd-
 https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.9p2.tar.gz
 https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz
 https://curl.se/download/curl-8.12.1.tar.xz
+https://curl.se/ca/cacert.pem
