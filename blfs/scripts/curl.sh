@@ -81,18 +81,8 @@ pushd ${SOURCES}
   rm -rf curl-8.12.1
 popd
 
-# Certs install as per wget script
-echo "Installing certs"
-file=/etc/curlrc
-line='cacert = "/etc/ssl/certs/ca-certificates.crt"'
-
-if [ -f "$file" ]; then
-  grep -qxF "$line" "$file" || echo "$line" >> "$file"
-else
-  echo "$line" > "$file"
-fi
-
-echo "Done installing certs"
-
 echo "Done installing curl"
-
+echo
+# n.b. the certs are expected installed as per wget.sh
+echo "Don't forget to add 'export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt' to your .bashrc"
+echo
