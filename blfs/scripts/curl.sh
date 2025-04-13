@@ -83,8 +83,15 @@ popd
 
 # Certs install as per wget script
 echo "Installing certs"
-grep -qxF 'cacert = "/etc/ssl/certs/ca-certificates.crt"' /etc/curlrc || \
-echo 'cacert = "/etc/ssl/certs/ca-certificates.crt"' >> /etc/curlrc
+file=/etc/curlrc
+line='cacert = "/etc/ssl/certs/ca-certificates.crt"'
+
+if [ -f "$file" ]; then
+  grep -qxF "$line" "$file" || echo "$line" >> "$file"
+else
+  echo "$line" > "$file"
+fi
+
 echo "Done installing certs"
 
 echo "Done installing curl"
