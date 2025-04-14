@@ -13,6 +13,7 @@ packages=(
   curl
   git
   lynx
+  cmake
 )
 
 for pkg in "${packages[@]}"; do

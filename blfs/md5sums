@@ -11,3 +11,9 @@ de2818c7dea718a4f264f463f595596b libidn2-2.3.7.tar.gz
 7940975dd510399c4b27831165ab62e0 curl-8.12.1.tar.xz
 99656f1481e70701198257ada703a480 git-2.48.1.tar.xz
 3ce01505e82626ca4d7291d7e649c4c9 lynx2.9.2.tar.bz2
+857fdafff8127139cc175a3ec9b43bd6 icu4c-76_1-src.tgz
+85dffa2387ff756bdf8b3b247594914a libxml2-2.13.6.tar.xz
+0cf8f819f4b717de7dde9f8164d0b466 nghttp2-1.64.0.tar.xz
+d346e03fe1ca89d877f9d1431ef97cec libuv-v1.50.0.tar.gz
+50c4dea9eba9a0add25ac1cfc9ba2cdb libarchive-3.7.7.tar.xz
+ea5e8d7208616b1609018db290a67419 cmake-3.31.5.tar.gz
