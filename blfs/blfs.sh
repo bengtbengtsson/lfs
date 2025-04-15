@@ -14,6 +14,7 @@ packages=(
   git
   lynx
   cmake
+  neovim
 )
 
 for pkg in "${packages[@]}"; do
