@@ -17,6 +17,7 @@ packages=(
   neovim
   sudo
   new_user
+  nerdfonts
 )
 
 for pkg in "${packages[@]}"; do
