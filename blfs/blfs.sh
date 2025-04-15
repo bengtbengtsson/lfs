@@ -16,6 +16,7 @@ packages=(
   cmake
   neovim
   sudo
+  new_user
 )
 
 for pkg in "${packages[@]}"; do
