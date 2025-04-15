@@ -15,6 +15,7 @@ packages=(
   lynx
   cmake
   neovim
+  sudo
 )
 
 for pkg in "${packages[@]}"; do
