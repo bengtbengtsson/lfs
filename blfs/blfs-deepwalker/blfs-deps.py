@@ -22,6 +22,9 @@ import requests
 from bs4 import BeautifulSoup, Tag
 from typing import cast
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
+
 # Logging config
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
@@ -30,6 +33,8 @@ SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
 CACHE = {}
 visited = set()
+
+LOCK = threading.Lock()        # protects the shared “visited” set
 
 def fetch_page(url, depth=0):
     indent = '  ' * depth
@@ -108,33 +113,49 @@ def extract_metadata(html, url):
 
     return data
 
-def crawl(base_url, only_recommended=False, only_required=False, exclude_packages=None):
-    G = nx.DiGraph()
-    to_visit = [(base_url, 0)]
+def crawl(base_url, only_recommended=False, only_required=False,
+          exclude_packages=None, workers=8, delay=0.3):
 
-    while to_visit:
-        url, depth = to_visit.pop()
-        if url in visited:
-            continue
-        visited.add(url)
+    G        = nx.DiGraph()
+    to_visit = [base_url]
 
-        html = fetch_page(url, depth)
-        if not html:
-            continue
+    with LOCK:
+        visited.add(base_url)     # mark root immediately
 
-        meta = extract_metadata(html, url)
-        if exclude_packages and meta['name'] in exclude_packages:
-            logging.info(f"⏭️ Skipping excluded package: {meta['name']}")
-            continue
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        while to_visit:
+            # schedule up to 'workers' new tasks
+            batch, to_visit = to_visit[:workers], to_visit[workers:]
+            future_url = {pool.submit(fetch_page, url): url for url in batch}
 
-        G.add_node(url, **meta)
-        deps = parse_dep_links(html, url,
-                               only_recommended=only_recommended,
-                               only_required=only_required)
-        for dep in deps:
-            G.add_edge(url, dep)
-            if dep not in visited:
-                to_visit.append((dep, depth + 1))
+            # polite throttling once per *batch*, not per page/thread
+            time.sleep(delay)
+
+            for fut in as_completed(future_url):
+                url  = future_url[fut]
+                html = fut.result()
+                if not html:
+                    continue
+
+                meta = extract_metadata(html, url)
+                if exclude_packages and meta["name"] in exclude_packages:
+                    logging.info(f"⏭️ Skip excluded {meta['name']}")
+                    continue
+
+                G.add_node(url, **meta)
+
+                deps = parse_dep_links(
+                    html, url,
+                    only_recommended=only_recommended,
+                    only_required=only_required,
+                )
+
+                for dep in deps:
+                    G.add_edge(url, dep)
+                    with LOCK:
+                        if dep not in visited:
+                            visited.add(dep)
+                            to_visit.append(dep)
     return G
 
 def export_graph(G, outpath):
