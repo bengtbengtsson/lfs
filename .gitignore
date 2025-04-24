@@ -3,3 +3,7 @@ blfs/sources
 blfs/blfs-deepwalker/*.json
 blfs/blfs-deepwalker/*.bak
 blfs/blfs-deepwalker/.DS_Store
+**/*.bak
+**/*.bak-*
+**/*.sqlite*
+
