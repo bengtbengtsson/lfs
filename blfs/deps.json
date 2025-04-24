@@ -1,0 +1,48 @@
+[
+  {
+    "name": "Xorg Input\n      Drivers",
+    "version": "1.13.3",
+    "checksum": "57ee77b7d4c480747e693779bb92fb84",
+    "download_http": "https://www.freedesktop.org/software/libevdev/libevdev-1.13.3.tar.xz",
+    "url": "https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#xorg-libinput-driver",
+    "deps": [
+      "mtdev-1.1.7",
+      "Xorg Input\n      Drivers",
+      "Xorg-Server-21.1.16",
+      "Xorg Input\n      Drivers"
+    ]
+  },
+  {
+    "name": "libtirpc-1.3.6",
+    "version": "1.3.6",
+    "checksum": "8de9e6af16c4bc65ba40d0924745f5b7",
+    "download_http": "https://downloads.sourceforge.net/libtirpc/libtirpc-1.3.6.tar.bz2",
+    "url": "https://www.linuxfromscratch.org/blfs/view/stable/basicnet/libtirpc.html",
+    "deps": []
+  },
+  {
+    "name": "elogind-255.17",
+    "version": "255.17",
+    "checksum": "3cd76e1a71e13c4810f6e80e176a8fa7",
+    "download_http": "https://github.com/elogind/elogind/archive/v255.17/elogind-255.17.tar.gz",
+    "url": "https://www.linuxfromscratch.org/blfs/view/stable/general/elogind.html",
+    "deps": [
+      "Linux-PAM-1.7.0",
+      "Polkit-126",
+      "docbook-xsl-nons-1.79.2",
+      "docbook-xml-4.5",
+      "libxslt-1.1.42",
+      "dbus-1.16.0"
+    ]
+  },
+  {
+    "name": "XKeyboardConfig-2.44",
+    "version": "2.44",
+    "checksum": "623a88fe63c6aefe3621bdfd5ba72764",
+    "download_http": "https://www.x.org/pub/individual/data/xkeyboard-config/xkeyboard-config-2.44.tar.xz",
+    "url": "https://www.linuxfromscratch.org/blfs/view/stable/x/xkeyboard-config.html",
+    "deps": [
+      "Xorg Libraries"
+    ]
+  }
+]

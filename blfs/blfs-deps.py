@@ -76,7 +76,11 @@ def fetch_page(url: str, depth: int = 0) -> tuple[str, bool]:
 
 def parse_dep_links(html: str, base_url: str,
                     *, only_recommended=False, only_required=False) -> list[str]:
-    soup = BeautifulSoup(html, "html.parser")
+    try:
+        soup = BeautifulSoup(html, "html.parser")
+    except Exception as e:
+        logging.error(f" Dependency parse failed for {base_url}: {e}")
+        return []
     deps: set[str] = set()
 
     for h in soup.find_all(re.compile(r"^h[1-6]$")):
@@ -101,28 +105,42 @@ def parse_dep_links(html: str, base_url: str,
                 break
     return list(deps)
 
+
 def extract_metadata(html: str, url: str) -> dict:
-    data = {"name": None, "version": None, "checksum": None,
-            "url": url, "download_http": None}
-    soup = BeautifulSoup(html, "html.parser")
-    h1 = soup.find("h1")
-    data["name"] = h1.get_text(strip=True) if h1 else url.rstrip("/").split("/")[-1]
+    # sensible defaults so we always have something to return
+    data = {
+        "name": url.rstrip("/").split("/")[-1],
+        "version": None,
+        "checksum": None,
+        "url": url,
+        "download_http": None,
+    }
 
-    m_url = re.search(r"(https?://\S+\.(?:tar\.\w+|tgz))", html)
-    if m_url:
-        dl = m_url.group(1)
-        data["download_http"] = dl
-        vm = re.search(r"-([0-9][^-/]*)\.tar", dl)
-        if vm:
-            data["version"] = vm.group(1)
+    try:
+        soup = BeautifulSoup(html, "html.parser")
 
-    for pat in (r"(?:SHA256\s*\(.*?\)\s*=|Download SHA256 sum:)\s*([A-Fa-f0-9]{64})",
-                r"(?:MD5\s*\(.*?\)\s*=|Download MD5 sum:)\s*([A-Fa-f0-9]{32})"):
-        m = re.search(pat, html)
-        if m:
-            data["checksum"] = m.group(1)
-            break
-    return data
+        if (h1 := soup.find("h1")):
+            data["name"] = h1.get_text(strip=True)
+
+        if (m_url := re.search(r"(https?://\S+\.(?:tar\.\w+|tgz))", html)):
+            dl = m_url.group(1)
+            data["download_http"] = dl
+            if (vm := re.search(r"-([0-9][^-/]*)\.tar", dl)):
+                data["version"] = vm.group(1)
+
+        for pat in (
+            r"(?:SHA256\s*\(.*?\)\s*=|Download SHA256 sum:)\s*([A-Fa-f0-9]{64})",
+            r"(?:MD5\s*\(.*?\)\s*=|Download MD5 sum:)\s*([A-Fa-f0-9]{32})",
+        ):
+            if (m := re.search(pat, html)):
+                data["checksum"] = m.group(1)
+                break
+
+    except Exception as e:
+        logging.error(f"⚠️  Metadata parse failed for {url}: {e}")
+        # fall through: 'data' still exists with safe defaults
+
+    return data   # guaranteed return on all paths
 
 # ---------- crawler ----------
 def crawl(base_url: str, *, workers=12, delay=0.3,
@@ -148,6 +166,8 @@ def crawl(base_url: str, *, workers=12, delay=0.3,
                     continue
 
                 meta = extract_metadata(html, url)
+                if not meta.get("name"):
+                    continue # nothing usable extracted
                 if exclude_packages and meta["name"] in exclude_packages:
                     logging.info(f"⏭️ Skip {meta['name']}")
                     continue
