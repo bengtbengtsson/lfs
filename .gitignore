@@ -1,9 +1,7 @@
-blfs/.DS_Store
 blfs/sources
-blfs/blfs-deepwalker/*.json
-blfs/blfs-deepwalker/*.bak
-blfs/blfs-deepwalker/.DS_Store
+**/deps.json
+**/*.bak
+**/.DS_Store
 **/*.bak
 **/*.bak-*
 **/*.sqlite*
-
