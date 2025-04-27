@@ -4,10 +4,16 @@ gen-build-scripts.py ─ generate BLFS-style bash build scripts with Ollama,
 injecting the exact ‘Installation of …’ commands scraped from the BLFS book.
 """
 
-import argparse, json, os, re, sys, textwrap
+import argparse
+import json
+import os
+import re
+import sys
+import textwrap
 from typing import Optional
 
-import bs4, requests
+import bs4
+import requests
 
 # ────────── CLI ──────────
 cli = argparse.ArgumentParser()
