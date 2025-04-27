@@ -17,7 +17,7 @@ import requests
 
 # ────────── CLI ──────────
 cli = argparse.ArgumentParser()
-cli.add_argument("deps", nargs="?", default="deps.json")
+cli.add_argument("--deps", nargs="?", default="deps.json")
 cli.add_argument("--model", default="deepseek-coder-v2")
 cli.add_argument("--outdir", default="build")
 cli.add_argument("--ollama-url", default="http://localhost:11434")
